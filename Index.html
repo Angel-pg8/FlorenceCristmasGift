@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentos Especiales</title>
+    <style>
+
+        /* Pantalla de Inicio */
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7547f1 0%, #dd864d 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.intro-screen.hidden {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+
+.intro-content {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.intro-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.intro-content p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.intro-heart {
+    font-size: 80px;
+    margin-bottom: 30px;
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    10%, 30% { transform: scale(1.1); }
+    20%, 40% { transform: scale(1); }
+}
+
+.start-button {
+    background: #dd864d;
+    color: #ffffff;
+    border: none;
+    padding: 18px 45px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+    }
+    50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
+    }
+}
+
+.start-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .intro-content h1 {
+        font-size: 32px;
+    }
+    .intro-content p {
+        font-size: 16px;
+    }
+    .intro-heart {
+        font-size: 60px;
+    }
+}
+
+/* Estilos del carrusel */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #dd864d 0%, #7547f1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .slide-content {
+            text-align: center;
+        }
+
+        .slide img {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .slide .date {
+            color: #dd864d;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .slide p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #dd864d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #dd864d;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #dd864d;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .counter {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Estilos de enlaces */
+
+        a {
+            color: #dd864d;       
+            text-decoration: none; 
+            font-weight: bold;     
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<!--Pantalla de Inicio-->
+
+<div class="intro-screen" id="introScreen">
+    <div class="intro-content">
+        <div class="intro-heart">🧡</div>
+        <h1>Honny</h1>
+        <p>Un "Wrap / Collage" de todo lo que vivimos juntos durante este año 2025</p>
+        <button class="start-button" onclick="startExperience()">Go ahead</button>
+    </div>
+</div>
+
+<!--Carusel-->
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="slides" id="slides">
+                <!-- Diapositiva 1 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB1.jpeg" alt="Momento 1">
+                        <h2>El día de nuestra primera cita</h2>
+                        <p class="date">14 de febrero, 2025</p>
+                        <p>El día de tu primer ramo de flores. 2/3 en el año [Se me olvidó uno :'( ] "<a href="https://open.spotify.com/intl-es/track/2b1GDOd80efEoOadEvJqEr?si=552851801a534ec4">The first layer</a>".</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 2 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB2.jpeg" alt="Momento 2">
+                        <h2>La propuesta</h2>
+                        <p class="date">21 de Marzo, 2025</p>
+                        <p>Primer dia como novios oficialmente. Estaba tan nervioso como el dia de la expo logros. "<a href="https://open.spotify.com/intl-es/track/0KB8lRa7AfmWX72pv5UnkO?si=fdd486a3e9d24e4b">Forever lost</a>" en tu mirada. btw frase mas dicha fue "Sometimes I think but then I forget"</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 3 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB3.jpeg" alt="Momento 3">
+                        <h2>En efecto fue Cine</h2>
+                        <p class="date">16 de abril, 2025</p>
+                        <p>Primera cita en el cine, del total de 3 que fuimos a ver este año. que buen "<a href="https://open.spotify.com/intl-es/track/78EQ5LZGgviMU9k0zrqv1r?si=37f4dade1c724f6d">Omen</a>" para lo que sería este año para nosotros</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 4 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB4.jpeg" alt="Momento 5">
+                        <h2>Menos mal tu mami confió</h2>
+                        <p class="date">22 de Junio, 2025</p>
+                        <p>Una salida repentina, pero estiveste para acompañarme, menos mal fue así, hacia mucho "<a href="https://open.spotify.com/intl-es/track/2NlTOhsAamXOaZciOXbITb?si=ab6c39ec6f334bea">Cold</a>" alli arriba.</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 5 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB5.jpg" alt="Momento 6">
+                        <h2>Personalmente mi pose favorita</h2>
+                        <p class="date">9 de Julio, 2025</p>
+                        <p>Una de entre tantas selfies, 57 y contando, ese dia llegaste con el mismo corte que me terminó de enamorar el dia del intercentro, pero al final I "<a href="https://open.spotify.com/intl-es/track/48vIfHaK7by6x0T6ucpODL?si=de027773b2504377">Make you mine</a>"</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 6 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB6.jpg" alt="Momento 6">
+                        <h2>Dia antes de tu cumpleaños</h2>
+                        <p class="date">21 de Agosto, 2024</p>
+                        <p>El dia de la Cena de la Alegría y un dia antes de tu cumpleaños, "<a href="https://open.spotify.com/intl-es/track/2FAZskT9yRjp2Oow9szJD8?si=8d6072ea786f448e">The Days</a>" en gira de medios</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 7 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB7.jpeg" alt="Momento 7">
+                        <h2>De las primeras veces que te publiqué en instagram</h2>
+                        <p class="date">11 de Septiembre, 2025</p>
+                        <p>El objetivo era parecer "<a href="https://open.spotify.com/intl-es/track/08bNPGLD8AhKpnnERrAc6G?si=884e4e83378f4d34">FRIENDS</a>" pero creo y solo creo que era un poco evidente (¿Tan evidente era?)</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 8 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB8.jpg" alt="Momento 8">
+                        <h2>Trabajo y vacaciones en Panamá</h2>
+                        <p class="date">2 de Noviembre, 2025</p>
+                        <p>La mejor semana de mi vida y fue junto a ti. Sin lugar a dudas fue "<a href="https://open.spotify.com/intl-es/track/2bDENJyfbxj0neGiXUFvIX?si=a632032e51c84ed1">Legendary</a>"</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 9 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB9.jpg" alt="Momento 9">
+                        <h2>¿Asi se siente el éxito?</h2>
+                        <p class="date">3 de Noviembre, 2025</p>
+                        <p>"<a href="https://open.spotify.com/intl-es/track/1lCRw5FEZ1gPDNPzy1K4zW?si=3aa3437750b94f42">We are the champions</a>" Siento que regresamos victoriosos y en el aspecto de pareja lo fue más</p>
+                    </div>
+                </div>
+
+                <!-- Diapositiva 10 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="FotosCollage/FB10.jpg" alt="Momento 10">
+                        <h2>Chicagua del amor o de la muerte</h2>
+                        <p class="date">23 de Noviembre, 2025</p>
+                        <p>¿Cita doble? Diana y elmer iban juntos y nosotros tambien. Sentí que nos caiamos, menos mal fue "<a href="https://open.spotify.com/intl-es/track/4oeaIftdpT3JuZLcCkKmVE?si=dd14ab0cab1e4a36">False alarm</a>"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <div class="dots" id="dotsContainer"></div>
+            <button id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+        </div>
+        <div class="counter" style="text-align: center; margin-top: 15px;">
+            <span id="currentSlide">1</span> de <span id="totalSlides">10</span>
+        </div>
+    </div>
+
+    <script>
+        function startExperience() {
+        const introScreen = document.getElementById('introScreen');
+        introScreen.classList.add('hidden');
+    
+        // Remover la pantalla del DOM después de la animación
+        setTimeout(() => {
+            introScreen.style.display = 'none';
+        }, 800);
+    }
+    </script>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slidesContainer = document.getElementById('slides');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Crear dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateCarousel() {
+            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Actualizar dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+
+            // Actualizar contador
+            document.getElementById('currentSlide').textContent = currentIndex + 1;
+
+            // Actualizar botones
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Soporte para deslizar en móviles
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slidesContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slidesContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) changeSlide(1);
+            if (touchEndX - touchStartX > 50) changeSlide(-1);
+        });
+
+        updateCarousel();
+    </script>
+</body>
+</html>
