@@ -2,9 +2,121 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Momentos Especiales</title>
     <style>
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    padding: 10px; /* Reducir padding en general */
+}
+
+/* Ajustar contenedor del carrusel para móviles */
+.carousel-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 20px; /* Reducir padding */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajustar controles para que quepan en móviles */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px; /* Espacio entre elementos */
+    flex-wrap: wrap; /* Permitir que se apilen si es necesario */
+}
+
+/* Botones más pequeños en móviles */
+.controls button {
+    padding: 10px 16px;
+    font-size: 14px;
+    flex-shrink: 0; /* Evitar que se compriman */
+    white-space: nowrap; /* Evitar que el texto se parta */
+}
+
+/* Dots en el centro con espacio adecuado */
+.dots {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+    min-width: 0; /* Permitir que se comprima si es necesario */
+}
+
+/* Ajustes específicos para pantallas pequeñas */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    
+    .carousel-container {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .slide {
+        padding: 20px 10px;
+    }
+    
+    .slide img {
+        max-width: 100%;
+        height: 250px; /* Reducir altura en móviles */
+    }
+    
+    .slide h2 {
+        font-size: 20px;
+    }
+    
+    .slide p {
+        font-size: 14px;
+    }
+    
+    /* Hacer botones aún más compactos */
+    .controls button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    /* Reducir tamaño de dots */
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .dot.active {
+        width: 24px;
+    }
+    
+    .counter {
+        font-size: 12px;
+    }
+}
+
+/* Para pantallas muy pequeñas (menos de 400px) */
+@media (max-width: 400px) {
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .controls button {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .dots {
+        order: -1; /* Mover dots arriba de los botones */
+        margin-bottom: 10px;
+    }
+}
 
         /* Pantalla de Inicio */
 .intro-screen {
@@ -471,3 +583,4 @@
     </script>
 </body>
 </html>
+
